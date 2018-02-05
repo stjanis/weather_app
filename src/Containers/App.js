@@ -7,8 +7,16 @@ class App extends Component {
 
   componentDidMount() {
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=Copenhagen&APPID=${API_KEY}`)
-      .then(response => response.json())
-      .then(data => console.log(data));
+      .then(response => {
+        if(response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(data => console.log(data))
+      .catch(error => 
+        console.log(`Ups, something failed: ${error.message}`)
+      );
   }
 
   render() {

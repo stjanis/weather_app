@@ -1,36 +1,64 @@
 import React, { Component } from 'react';
-import Sidebar from '../Components/Sidebar';
-import MainPane from '../Components/MainPane';
-import '../Scss/main.css';
-
-const API_KEY = 'f4db44a7c0f5d0532e5ea1c3505317e0';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
+import NavPane from '../components/NavPane';
+import ViewPane from '../components/ViewPane';
 
 class App extends Component {
 
-  componentDidMount() {
-    fetch(`http://api.openweathermap.org/data/2.5/group?id=524901,703448,2643743&APPID=${API_KEY}`)
-      .then(response => {
-        if(response.ok) {
-          return response.json();
-        }
-        throw new Error(response.statusText);
-      })
-      .then(data => console.log(data))
-      .catch(error => 
-        console.log(`Ups, something failed: ${error.message}`)
-      );
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      cities: [
+        "Copenhagen",
+        "San Francisco",
+        "Shanghai",
+      ],
+    };
+    this.addCity = this.addCity.bind(this);
+  }
+
+  addCity() {
+    const newCity = document.getElementById('add-city').value;
+    if (newCity && !this.state.cities.includes(newCity)) {
+      this.setState(prevState => ({
+        cities: [...prevState.cities, newCity]
+      }));
+    }
+    document.getElementById('add-city').value = '';
   }
 
   render() {
     return (
       <div className="App">
-        <Sidebar
-          cities={["Copenhagen", "San Francisco", "Shanghai"]}
+        <NavPane
+          cities={this.state.cities}
+          selectCity={this.props.selectCity}
         />
-        <MainPane />
+        <div>
+          <input id="add-city" type="text" placeholder="add city" />
+          <button onClick={this.addCity}>add</button>
+        </div>
+        <ViewPane
+          units={this.state.units}
+          selectedCity={this.props.selectedCity || this.state.cities[0]}
+        />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    selectedCity: state.selectedCity
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectCity: country => dispatch(actions.selectCity(country)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

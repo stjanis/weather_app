@@ -1,0 +1,81 @@
+@import "../scss/variables";
+
+.nav-pane {
+  background: $brand__secondary;
+  border-top: 5px solid $ui__secondary--dark;
+
+  &__cities-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__city {
+    border-bottom: 1px solid $ui__secondary;
+    color: $font__c;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 20px;
+
+    &:hover {
+      background: $ui__secondary;
+      color: #000;
+    }
+
+    &--selected {
+      background:	$ui__primary;
+      color: #000;
+    }
+  }
+
+  &__add-city {
+    position: relative;
+  }
+
+  &__city-input {
+    border: none;
+    display: inline-block;
+    width: 80%;
+    margin: 0;
+    padding: 35px 0 5px 20px;
+    box-sizing: border-box;
+    background: $brand__secondary;
+    font-size: 18px;
+    border-bottom: 1px solid $ui__secondary;
+
+    &:focus {
+      font-size: 24px;
+      outline: none;
+    }
+  }
+
+  &__city-submit {
+    background: $ui__secondary--dark;
+    border: none;
+    color: $font__c--light;
+    cursor: pointer;
+    font-size: 38px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background: $ui__secondary;
+    }
+  }
+
+  @media screen and (min-width: 960px) {
+    border-top: none;
+    border-right: 5px solid $ui__primary;
+    box-sizing: border-box;
+    height: 100vh;
+    float: left;
+    width: 30%;
+  }
+}

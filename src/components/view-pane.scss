@@ -1,0 +1,47 @@
+@import "../scss/variables";
+
+.view-pane {
+  background: $brand__primary;
+  padding-bottom: 60px;
+
+  &__current-weather {
+    color: $ui__primary--dark;
+    font-size: 96px;
+    font-weight: 700;
+    padding-top: 15%;
+    text-align: center;
+  }
+
+  &__unit {
+    font-weight: 300;
+    font-size: 46px;
+    margin-left: 10px;
+  }
+
+  &__select-unit {
+    color: $font__c;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 960px) {
+    float: right;
+    height: 100vh;
+    padding-bottom: 0;
+    width: 70%;
+
+    &__current-weather {
+      font-size: 186px;
+    }
+
+    &__unit {
+      font-size: 120px;
+      margin-left: 40px;
+    }
+
+    &__select-unit {
+      font-size: 26px;
+    }
+  }
+}

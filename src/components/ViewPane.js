@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './view-pane.css';
 
 const API_URL = 'http://api.openweathermap.org/data/2.5/weather';
 const API_KEY = 'f4db44a7c0f5d0532e5ea1c3505317e0';
@@ -54,14 +55,25 @@ class ViewPane extends Component {
 
   render() {
     return (
-      <div>
+      <div className="view-pane">
         {
           this.state.weatherData.main ?
-            <h1>{this.state.weatherData.main.temp}</h1> :
-            <span>Loading...</span>
+            <div className="view-pane__current-weather">
+              {this.state.weatherData.main.temp}
+              {this.state.units === 'metric' ?
+                <span className="view-pane__unit">&#8451;</span> :
+                <span className="view-pane__unit">&#8457;</span>
+              }
+            </div> :
+            <span className="view-pane__loading">Loading...</span>
         }
 
-        <div onClick={this.toggleUnits}>Change units</div>
+        <div
+          className="view-pane__select-unit"
+          onClick={this.toggleUnits}
+        >
+          Select unit &#8451; | &#8457;
+        </div>
       </div>
     )
   }
